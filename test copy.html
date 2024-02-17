@@ -1,48 +1,58 @@
 <html>
-
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>Calcite Components: Create a mapping app</title>
 
-    <script src="https://js.arcgis.com/calcite-components/2.3.0/calcite.esm.js" type="module"></script>
-    <link rel="stylesheet" href="https://js.arcgis.com/calcite-components/2.3.0/calcite.css" />
+    <script src="https://js.arcgis.com/calcite-components/2.4.0/calcite.esm.js" type="module"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/calcite-components/2.4.0/calcite.css" />
 
     <script src="https://js.arcgis.com/4.27/"></script>
     <link rel="stylesheet" href="https://js.arcgis.com/4.27/esri/themes/light/main.css" />
-   
-    <script src="./app.js" defer type="module"></script>
- 
-<!--     <link rel="stylesheet" href="./style.css" /> -->
-<style>
-
-  html,
-  body,
-  #viewDiv {
-    padding: 0;
-    margin: 0;
-    height: 100%;
-    width: 100%;
-  }
-
-</style>
+     <script src="./app.js" defer type="module"></script>
   </head>
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      display: flex;
+    }
+
+    calcite-loader {
+      align-self: center;
+      justify-self: center;
+    }
+
+    #header-title {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+
+    #info-content {
+      padding: 0.75rem;
+    }
+
+    calcite-rating {
+      margin-top: 0.25rem;
+    }
+
+  </style>
 
   <body>
-
-    <calcite-shell content-behind>
-
+    <calcite-loader></calcite-loader>
+    <calcite-shell content-behind hidden>
       <h2 id="header-title" slot="header">
         <!-- Dynamically populated -->
-        
       </h2>
-     <!--  <calcite-navigation slot="header">
-        <calcite-navigation-logo slot="logo" heading="Alternative Fuel Stations" thumbnail="./logo.svg"></calcite-navigation-logo>
-        <calcite-navigation-user slot="user" full-name="Sample user" username="map_fan_123" ></calcite-navigation-user>
-    </calcite-navigation> -->
 
       <calcite-shell-panel slot="panel-start" display-mode="float">
-
         <calcite-action-bar slot="action-bar">
           <calcite-action data-action-id="layers" icon="layers" text="Layers"></calcite-action>
           <calcite-action data-action-id="basemaps" icon="basemap" text="Basemaps"></calcite-action>
@@ -50,9 +60,10 @@
           <calcite-action data-action-id="bookmarks" icon="bookmark" text="Bookmarks"></calcite-action>
           <calcite-action data-action-id="print" icon="print" text="Print"></calcite-action>
           <calcite-action data-action-id="information" icon="information" text="Information"></calcite-action>
+          <calcite-action data-action-id="mapFilters" icon="print" text="Map Filters"></calcite-action>
         </calcite-action-bar>
 
-        <!-- Map-specific panels (each one provides a div for ArcGIS Maps SDK for JavaScript widgets) -->
+        <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
         <calcite-panel heading="Layers" height-scale="l" data-panel-id="layers" hidden>
           <div id="layers-container"></div>
         </calcite-panel>
@@ -67,6 +78,28 @@
         </calcite-panel>
         <calcite-panel heading="Print" height-scale="l" data-panel-id="print" hidden>
           <div id="print-container"></div>
+        </calcite-panel>
+        <calcite-panel heading="Map Filters" height-scale="l" data-panel-id="mapFilters" hidden>
+            <div id="mapFilters-container">
+                <calcite-panel heading="Parcels Filters">
+                    <calcite-action slot="header-actions-end" id="toggle-instructions" text="Instructions"
+                        icon="lightbulb"></calcite-action>
+                    <calcite-tooltip placement="right" overlay-positioning="fixed"
+                        reference-element="toggle-instructions" slot="header-actions-end">Use
+                        the List Items to show or hide types of alternative fuel stations and toggle displayed
+                        corridors.</calcite-tooltip>
+
+                    <calcite-block heading="Alternative Fuel Corridors" description="Nationally designated motorways"
+                        collapsible>
+                        <calcite-icon slot="icon" scale="s" icon="exit-highway-right"></calcite-icon>
+                    </calcite-block>
+                    <calcite-block heading="Fuel Types" open collapsible>
+                        <calcite-icon slot="icon" scale="s" icon="camera-flash-on"></calcite-icon>
+                    </calcite-block>
+                </calcite-panel>
+            </div>
+          </calcite-panel>
+
 
         <!-- Info panel (populates with info from the web map) -->
         <calcite-panel heading="Details" data-panel-id="information" hidden>
@@ -83,12 +116,13 @@
             </calcite-label>
           </div>
         </calcite-panel>
-
       </calcite-shell-panel>
 
+      <calcite-shell-panel display-mode="float" slot="panel-end">
+        <calcite-panel heading="Popular routes">
+        </calcite-panel>
+    </calcite-shell-panel>
       <div id="viewDiv"></div>
-
     </calcite-shell>
-
-  </body>
+  </body>  
 </html>
