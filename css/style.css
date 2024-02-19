@@ -29,6 +29,7 @@ body,
   background-color: #353535;
 }
 
+
 /** Setting custom core Calcite theme variables for light (default) and dark modes */
 
 body.lavender {
@@ -228,3 +229,27 @@ calcite-accordion {
   margin-bottom: 1.25rem;
 }
 
+
+
+#search-container {
+	position: fixed;
+}
+
+.esri-search {
+    	inline-size: var(--calcite-shell-panel-width)!important;
+	max-inline-size: var(--calcite-shell-panel-max-width)!important;
+	min-inline-size: var(--calcite-shell-panel-min-width)!important;
+	transition: max-block-size var(--calcite-animation-timing), max-inline-size var(--calcite-animation-timing)!important;
+ 	border-radius: 0px 0px 5px 5px !important;
+	--calcite-ui-brand: none !important;
+}
+
+
+.esri-search__suggestions-menu {
+	border-radius: 0px 0px 3px 3px !important;
+}
+
+.esri-search--show-suggestions .esri-search__suggestions-menu, .esri-search--sources .esri-search__sources-menu {
+	border-top: solid 1px rgba(200,200,200) !important;
+	margin: 0 0 0 0 !important;
+}
