@@ -13,7 +13,7 @@ import BasemapGallery from "https://js.arcgis.com/4.27/@arcgis/core/widgets/Base
 import Search from "https://js.arcgis.com/4.27/@arcgis/core/widgets/Search.js";
 import appConfig from "../config/config.js"
     const webmapId = new URLSearchParams(window.location.search).get("webmap") ?? "210c5b77056846808c7a5ce93920be81";
-
+ 
     const map = new WebMap({
       portalItem: {
         id: webmapId
@@ -27,9 +27,13 @@ import appConfig from "../config/config.js"
         left: 49
       }
     });
-
+    let homeWidget = new Home({
+      view: view
+    });
+    view.ui.components = (["attribution","zoom", "compass", ]);
     view.ui.move("zoom", "top-left");
-
+ // adds the home widget to the top left corner of the MapView
+    view.ui.add(homeWidget, "top-left");
     const basemaps = new BasemapGallery({
       view,
       container: "basemaps-container"
